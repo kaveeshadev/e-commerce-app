@@ -76,7 +76,6 @@ const PlaceOrder = () => {
               headers: { Authorization: `Bearer ${token}` }, // Correct Authorization format
             }
           );
-          
 
           if (response.data.success) {
             setCartItems({});
@@ -86,7 +85,21 @@ const PlaceOrder = () => {
           }
           break;
 
-        default:
+        // Stripe payment method case
+        case "stripe":
+          const responseStripe = await axios.post(
+            `${backendUrl}/api/order/stripe`,
+            orderData,
+            {
+              headers: { Authorization: `Bearer ${token}` }, // Consistent Authorization header
+            }
+          );
+          if (responseStripe.data.success) {
+            const { session_url } = responseStripe.data;
+            window.location.replace(session_url);
+          } else {
+            toast.error(responseStripe.data.message);
+          }
           break;
       }
     } catch (error) {

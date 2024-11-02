@@ -79,7 +79,7 @@ const ShopContextProvider = (props) => {
     }
   };
 
-  const getCardAmount = () => {
+  const getCartAmount = () => {
     let totalAmount = 0;
     for (const items in cartItems) {
       let itemInfo = products.find((product) => product._id === items);
@@ -146,7 +146,7 @@ const ShopContextProvider = (props) => {
     addToCart,
     getCartCount,
     updateQuantity,
-    getCardAmount,
+    getCartAmount,
     navigate,
     backendUrl,
     setToken,

@@ -12,3 +12,5 @@ const Loader = () => {
 };
 
 export default Loader;
+
+// Add a Loader component to your React app to display a loading spinner during route transitions. The Loader component will be displayed whenever the isLoading state is true, and it will be hidden when the isLoading state is false. This will provide a visual indication to users that the app is loading new content.

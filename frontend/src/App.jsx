@@ -1,5 +1,5 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Collection from "./pages/Collection";
 import About from "./pages/About";
@@ -12,10 +12,29 @@ import Orders from "./pages/Orders";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Verify from "./pages/Verify";
+import Loader from "./components/Loader"; // Import the Loader component
+
 const App = () => {
+  const [isLoading, setIsLoading] = useState(false); // Loader state
+  const location = useLocation(); // Track the current route
+
+  useEffect(() => {
+    // Trigger loader on route change
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false); // Stop loader after 1 second (simulate loading)
+    }, 1000);
+
+    return () => clearTimeout(timer); // Cleanup timeout
+  }, [location]); // Run this effect whenever the route changes
+
+  if (isLoading) {
+    return <Loader />; // Show loader during route transitions
+  }
+
   return (
     <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
       <ToastContainer />

@@ -83,10 +83,10 @@ const removeProduct = async (req, res) => {
 
 // function for single product info
 
-export const singleProduct = async (req, res) => {
+const singleProduct = async (req, res) => {
   try {
     const { id } = req.body;
-    const product = await Product.findById(id);
+    const product = await productModel.findById(id);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }

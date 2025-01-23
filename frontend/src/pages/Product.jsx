@@ -4,7 +4,6 @@ import { ShopContext } from "../context/ShopContext";
 import { assets } from "../assets/assets";
 import RelatedProducts from "../components/RelatedProducts";
 
-
 const Product = () => {
   const { productId } = useParams();
   const { products, currency, addToCart } = useContext(ShopContext);
@@ -13,16 +12,14 @@ const Product = () => {
   const [size, setSize] = useState("");
 
   const fetchProductData = () => {
-    setProductData(
-      products.find((item) => {
-        if (item._id === productId) {
-          setImage(item.image[0]);
-
-          return true;
-        }
-        return false;
-      })
-    );
+    const product = products.find((item) => item._id === productId);
+    if (product) {
+      setProductData(product);
+      setImage(product.image[0]);
+      document.title = product.name || "Product Details - Forever"; // Update page title
+    } else {
+      document.title = "Product Not Found - Forever"; // Fallback title
+    }
   };
 
   useEffect(() => {
@@ -42,12 +39,12 @@ const Product = () => {
                 src={item}
                 key={index}
                 className="w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer"
-                alt=""
+                alt={productData.name}
               />
             ))}
           </div>
           <div className="w-full sm:w-[80%]">
-            <img src={image} className="w-full h-auto" alt="" />
+            <img src={image} className="w-full h-auto" alt={productData.name} />
           </div>
         </div>
 
@@ -101,7 +98,6 @@ const Product = () => {
       </div>
 
       {/* Description and Review Section */}
-
       <div className="mt-20 ">
         <div className="flex">
           <b className="border px-5 py-3 text-sm">Description</b>

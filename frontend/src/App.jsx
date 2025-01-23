@@ -15,13 +15,30 @@ import SearchBar from "./components/SearchBar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Verify from "./pages/Verify";
-import Loader from "./components/Loader"; // Import the Loader component
+import Loader from "./components/Loader";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false); // Loader state
   const location = useLocation(); // Track the current route
 
+  // Route-to-title mapping
+  const routeTitles = {
+    "/": "Home - Forever",
+    "/collection": "Collection - Forever",
+    "/about": "About Us - Forever",
+    "/contact": "Contact Us - Forever",
+    "/cart": "Your Cart - Forever",
+    "/login": "Login - Forever",
+    "/place-order": "Place Order - Forever",
+    "/orders": "Your Orders - Forever",
+    "/verify": "Verify Account - Forever",
+  };
+
   useEffect(() => {
+    // Set the document title based on the current route
+    const title = routeTitles[location.pathname] || "Forever";
+    document.title = title;
+
     // Trigger loader on route change
     setIsLoading(true);
     const timer = setTimeout(() => {
